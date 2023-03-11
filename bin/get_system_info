@@ -1,0 +1,24 @@
+#!/usr/bin/env ruby
+
+require 'optparse'
+require_relative '../lib/system'
+
+options = {}
+os_system = Os
+parser = OptionParser.new do |parser|
+  parser.on("-i", "--inspect", "Inspect System") do
+    puts "#{os_system.diskused} Gigabytes Used"
+    puts "#{os_system.memused}% Active Memory Used"
+    puts "#{os_system.cpuused}% CPU Used"
+    puts "Top Ten Processes By CPU Consumption: #{os_system.cputop}"
+    puts "Top Ten Processes By Memory Consumption: #{os_system.memtop}"
+    exit
+  end
+
+  parser.on("-h", "--help", "Prints this help") do
+    puts parser
+    exit
+  end
+end
+
+parser.parse!(into: options)
